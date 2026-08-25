@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FarmaYa WiFi Invitados</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#F15A24;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+}
+
+.card{
+    background:#fff;
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 20px 50px rgba(0,0,0,.20);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo img{
+    max-width:180px;
+    width:100%;
+}
+
+.logo-placeholder{
+    border:2px dashed #d1d5db;
+    border-radius:12px;
+    padding:30px;
+    color:#6b7280;
+    font-size:14px;
+}
+
+h1{
+    color:#F15A24;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
+}
+
+.terms{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    background:#fafafa;
+    padding:15px;
+    height:180px;
+    overflow-y:auto;
+    margin-bottom:20px;
+}
+
+.terms h3{
+    color:#F15A24;
+    margin-bottom:10px;
+}
+
+.terms p{
+    color:#555;
+    line-height:1.6;
+    margin-bottom:10px;
+}
+
+.accept{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.accept input{
+    margin-top:4px;
+}
+
+.accept label{
+    color:#444;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    border:none;
+    background:#F15A24;
+    color:white;
+    padding:16px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#d84d1b;
+}
+
+button:disabled{
+    background:#bdbdbd;
+    cursor:not-allowed;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    font-size:12px;
+    color:#888;
+}
+
+.support{
+    text-align:center;
+    margin-top:15px;
+    color:#666;
+    font-size:13px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+
+            <!-- Reemplaza por tu logo -->
+
+            <!--
+            <img src="logo.png" alt="FarmaYa">
+            -->
+
+            <div class="logo-placeholder">
+                LOGO FARMAYA
+            </div>
+
+        </div>
+
+        <h1>Bienvenido a FarmaYa</h1>
+
+        <p class="subtitle">
+            Acceso gratuito a Internet para nuestros visitantes.
+        </p>
+
+        <div class="terms">
+
+            <h3>Términos y Condiciones</h3>
+
+            <p>
+                El acceso a esta red inalámbrica es exclusivo para clientes,
+                visitantes y personal autorizado.
+            </p>
+
+            <p>
+                Está prohibido realizar actividades que afecten la seguridad,
+                disponibilidad o integridad de la red.
+            </p>
+
+            <p>
+                Toda actividad podrá ser registrada con fines de monitoreo,
+                auditoría y cumplimiento de políticas de seguridad.
+            </p>
+
+            <p>
+                Al continuar, usted acepta los términos y condiciones de uso
+                establecidos por FarmaYa.
+            </p>
+
+        </div>
+
+        <div class="accept">
+            <input type="checkbox" id="terms">
+            <label for="terms">
+                He leído y acepto los términos y condiciones.
+            </label>
+        </div>
+
+        <button id="connectBtn" disabled>
+            Conectarme a Internet
+        </button>
+
+        <div class="support">
+            Si necesita ayuda, contacte al área de soporte.
+        </div>
+
+        <div class="footer">
+            © FarmaYa | Red WiFi para Invitados
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const terms = document.getElementById('terms');
+const button = document.getElementById('connectBtn');
+
+terms.addEventListener('change', function() {
+    button.disabled = !this.checked;
+});
+
+button.addEventListener('click', function() {
+
+    alert('Gracias por aceptar los términos.');
+
+    // Cambia esta URL por la página que desees
+    window.location.href = 'https://www.farmaya.com';
+
+});
+
+</script>
+
+</body>
+</html>
