@@ -221,11 +221,10 @@ button:disabled{
     }
 
     function conectar() {
-    const hostAruba = getParam('host');
-   // const hostAruba = getParam('host') || '10.0.50.1';
+    //const hostAruba = getParam('host');
+    const hostAruba = getParam('host') || '10.0.50.1';
     const macCliente = getParam('mac');
-    const loginUrl =
-        `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}`;
+    const loginUrl =`http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}`;
 
     fetch(loginUrl, { mode: 'no-cors' })
         .then(() => {
@@ -250,7 +249,7 @@ button:disabled{
         alert('Gracias por aceptar los términos.');
 
         // Ejecuta la autenticación Aruba
-        conectar();
+       // conectar();
 
         // Si quieres redirigir luego a otra página, Aruba debe hacerlo
         // o deberías usar:
