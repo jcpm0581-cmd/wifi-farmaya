@@ -138,7 +138,7 @@ button:disabled{
     color:#666;
     font-size:13px;
 }
-   
+
 </style>
 </head>
 <body>
@@ -148,10 +148,16 @@ button:disabled{
     <div class="card">
 
         <div class="logo">
+
             <!-- Reemplaza por tu logo -->
 
-        <img src="logo.png" alt="FarmaYa"> 
-         </div>
+           
+            <img src="logo.png" alt="FarmaYa">
+          
+
+          
+
+        </div>
 
         <h1>Bienvenido a FarmaYa</h1>
 
@@ -217,30 +223,16 @@ terms.addEventListener('change', function() {
     button.disabled = !this.checked;
 });
 
-button.addEventListener('click', async function() {
+button.addEventListener('click', function() {
 
-    try {
+    alert('Gracias por aceptar los términos.');
 
-        const response = await fetch('/accept', {
-            method: 'POST'
-        });
-
-        const text = await response.text();
-
-        document.open();
-        document.write(text);
-        document.close();
-
-    } catch (e) {
-
-        alert('Error de comunicación con el portal.');
-
-    }
+    // Cambia esta URL por la página que desees
+    window.location.href = 'https://www.farmaya.com';
 
 });
 
 </script>
-
 
 </body>
 </html>
