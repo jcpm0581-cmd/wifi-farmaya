@@ -221,8 +221,21 @@ button.addEventListener('click', function() {
 
     alert('Gracias por aceptar los términos.');
 
-    // Cambia esta URL por la página que desees
-    window.location.href=login_url;
+    const params = new URLSearchParams(window.location.search);
+
+    const switchip = params.get('switchip');
+    const destino = params.get('url') || 'http://neverssl.com';
+
+    if (!switchip) {
+        alert('No se recibió la dirección del controlador Aruba.');
+        return;
+    }
+
+    // URL de retorno hacia Aruba
+    const arubaLoginUrl =
+        `http://${switchip}/cgi-bin/login?cmd=login&url=${encodeURIComponent(destino)}`;
+
+    window.location.href = arubaLoginUrl;
 
 });
 
