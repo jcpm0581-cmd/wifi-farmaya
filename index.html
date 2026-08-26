@@ -221,16 +221,14 @@ button:disabled{
     }
 
     function conectar() {
-        // Datos enviados por Aruba
-        const hostAruba = getParam('host') || '10.0.59.1';
-        const macCliente = getParam('mac');
+    const hostAruba = getParam('host') || '10.0.59.1';
+    const macCliente = getParam('mac');
 
-        // URL de autenticación Aruba
-        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&msg=AccesoAutorizado`;
+    const destino = encodeURIComponent('https://www.instagram.com/farmaya_pty');
 
-        // Redirección
-        window.location.href = loginUrl;
-    }
+    window.location.href =
+        `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&url=${destino}`;
+}
 </script>
 
 <script>
