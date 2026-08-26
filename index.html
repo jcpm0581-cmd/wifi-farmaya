@@ -217,25 +217,25 @@ terms.addEventListener('change', function() {
     button.disabled = !this.checked;
 });
 
-button.addEventListener('click', function() {
+button.addEventListener('click', async function() {
 
-    alert(window.location.href);
+    try {
 
-    const params = new URLSearchParams(window.location.search);
+        const response = await fetch('/accept', {
+            method: 'POST'
+        });
 
-    const switchip = params.get('switchip');
-    const destino = params.get('url') || 'http://neverssl.com';
+        const text = await response.text();
 
-    if (!switchip) {
-        alert('No se recibió la dirección del controlador Aruba.');
-        return;
+        document.open();
+        document.write(text);
+        document.close();
+
+    } catch (e) {
+
+        alert('Error de comunicación con el portal.');
+
     }
-
-    // URL de retorno hacia Aruba
-    const arubaLoginUrl =
-        `http://${switchip}/cgi-bin/login?cmd=login&url=${encodeURIComponent(destino)}`;
-
-    window.location.href = arubaLoginUrl;
 
 });
 
