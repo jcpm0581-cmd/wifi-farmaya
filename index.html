@@ -221,13 +221,20 @@ button:disabled{
     }
 
     function conectar() {
-    const hostAruba = getParam('host') || '10.0.50.1';
+    const hostAruba = getParam('host');
+   // const hostAruba = getParam('host') || '10.0.50.1';
     const macCliente = getParam('mac');
+    const loginUrl =
+        `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}`;
 
-    const destino = encodeURIComponent('https://www.instagram.com/farmaya_pty');
+    fetch(loginUrl, { mode: 'no-cors' })
+        .then(() => {
+            window.location.href = 'https://www.farmaya.com';
+        });
 
-    window.location.href =
-        `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&url=${destino}`;
+   // const destino = encodeURIComponent('https://www.instagram.com/farmaya_pty');
+
+   // window.location.href =`http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&url=${destino}`;
 }
 </script>
 
