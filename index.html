@@ -139,6 +139,38 @@ button:disabled{
     font-size:13px;
 }
 
+
+// Funcción para obtener los parámetros que Aruba envía en la URL
+function getUrlParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Configurar y enviar el formulario al AP
+function enviarAutenticacion() {
+    // 1. Obtener los datos clave que envió el Virtual Controller
+    const targetUrl = getUrlParam('switch_url'); // La URL de destino del AP (ej. http://1.1.1)
+    const clientMac = getUrlParam('client_mac');
+    const clientIp = getUrlParam('client_ip');
+
+    // 2. Inyectar los datos en el formulario oculto
+    const form = document.getElementById('aruba_login_form');
+    document.getElementById('mac').value = clientMac;
+    document.getElementById('ip').value = clientIp;
+
+    // 3. Cambiar la acción del formulario para que apunte directamente al AP
+    if (targetUrl) {
+        form.action = targetUrl;
+        form.submit(); // Enviar el formulario y liberar el internet
+    } else {
+        console.error("No se encontró la URL del Virtual Controller (switch_url) en la barra de direcciones.");
+        alert("Error de conexión con el punto de acceso.");
+    }
+}
+
+
+    
+    
 </style>
 </head>
 <body>
