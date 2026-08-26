@@ -215,40 +215,42 @@ button:disabled{
 </div>
 
 <script>
-        // Función para obtener los parámetros que Aruba envía en la URL
-        function getParam(name) {
-            return new URLSearchParams(window.location.search).get(name);
-        }
+    // Función para obtener los parámetros que Aruba envía en la URL
+    function getParam(name) {
+        return new URLSearchParams(window.location.search).get(name);
+    }
 
-        function conectar() {
-            // Capturamos los datos enviados originalmente por el AP de Aruba
-            const hostAruba = getParam('host') || '10.0.59.1'; // IP del AP / Virtual Controller
-            const macCliente = getParam('mac');
+    function conectar() {
+        // Datos enviados por Aruba
+        const hostAruba = getParam('host') || '10.0.59.1';
+        const macCliente = getParam('mac');
 
-            // Redirigimos al cliente hacia el AP para autorizarlo
-            // Es vital incluir el texto exacto que configuraremos en el AP (ej: "AccesoAutorizado")
-            window.location.href = `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&msg=AccesoAutorizado`;
-        }
-    </script>
-    
+        // URL de autenticación Aruba
+        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&msg=AccesoAutorizado`;
+
+        // Redirección
+        window.location.href = loginUrl;
+    }
+</script>
+
 <script>
+    const terms = document.getElementById('terms');
+    const button = document.getElementById('connectBtn');
 
-const terms = document.getElementById('terms');
-const button = document.getElementById('connectBtn');
+    terms.addEventListener('change', function () {
+        button.disabled = !this.checked;
+    });
 
-terms.addEventListener('change', function() {
-    button.disabled = !this.checked;
-});
+    button.addEventListener('click', function () {
+        alert('Gracias por aceptar los términos.');
 
-button.addEventListener('click', function(conectar) {
+        // Ejecuta la autenticación Aruba
+        conectar();
 
-    alert('Gracias por aceptar los términos.');
-
-    // Cambia esta URL por la página que desees
-    // window.location.href = 'https://www.farmaya.com';
-
-});
-
+        // Si quieres redirigir luego a otra página, Aruba debe hacerlo
+        // o deberías usar:
+        // window.location.href = 'https://www.farmaya.com';
+    });
 </script>
 
 </body>
