@@ -213,53 +213,51 @@ button:disabled{
     </div>
 
 </div>
+    
 <script>
-    // 1. Capturamos los elementos del DOM
     const termsCheckbox = document.getElementById('terms');
     const connectButton = document.getElementById('connectBtn');
 
-    // 2. Función para leer los parámetros que envía Aruba en la URL
+    // 1. Función para extraer parámetros reales inyectados por Aruba en la URL
     function getQueryParam(name) {
-        try {
-            return new URLSearchParams(window.location.search).get(name);
-        } catch (e) {
-            return null;
-        }
+        return new URLSearchParams(window.location.search).get(name) || '';
     }
 
-    // 3. Función unificada para activar/desactivar el botón
     function evaluarEstado() {
-        if (termsCheckbox.checked) {
-            connectButton.disabled = false;
-        } else {
-            connectButton.disabled = true;
-        }
+        connectButton.disabled = !termsCheckbox.checked;
     }
 
-    // Escuchamos tanto 'change' como 'click' para asegurar compatibilidad en móviles
     termsCheckbox.addEventListener('change', evaluarEstado);
     termsCheckbox.addEventListener('click', evaluarEstado);
 
-    // 4. Evento de clic en el botón de conectar
+    // 2. Evento del botón de conexión
     connectButton.addEventListener('click', function () {
-        // Deshabilitamos el botón inmediatamente para evitar múltiples clics
         connectButton.disabled = true;
         connectButton.innerText = "Conectando...";
 
-        // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
-        const hostAruba = getQueryParam('host') || '10.0.50.1';
-        const macCliente = getQueryParam('mac') || '';
+        // Capturamos los datos dinámicos que Aruba necesita de forma obligatoria
+        const hostAruba = getQueryParam('host') || '10.0.50.1'; // IP del VC
+        const macCliente = getQueryParam('mac');                // MAC del usuario
+        const ipCliente  = getQueryParam('ip');                 // IP del usuario
         
-        // URL de destino final
-        const urlDestino = encodeURIComponent('https://farmaya.com');
+        // Destino final del cliente
+        const urlDestino = 'https://farmaya.com';
 
-        // Construimos la URL de autenticación oficial para Aruba
-        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
+        // IMPORTANTE: Cambiamos a la URL con el puerto estándar del Portal Cautivo de Aruba (:8060)
+        // Y cambiamos el comando a 'login' enviando un usuario/pass genérico ("guest") para engañar al VC
+        const loginUrl = `http://${hostAruba}:8060/cgi-bin/login` + 
+                         `?cmd=login` +
+                         `&mac=${macCliente}` +
+                         `&ip=${ipCliente}` +
+                         `&user=guest` +
+                         `&password=guest` +
+                         `&url=${encodeURIComponent(urlDestino)}`;
 
-        // Redirección directa
+        // Enviamos la petición directamente
         window.location.href = loginUrl;
     });
 </script>
+
 
 </body>
 </html>
