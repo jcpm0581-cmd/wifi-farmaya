@@ -213,49 +213,43 @@ button:disabled{
     </div>
 
 </div>
-
 <script>
-    // Función para obtener los parámetros que Aruba envía en la URL
-    function getParam(name) {
+    // 1. Capturamos los elementos del DOM una sola vez
+    const termsCheckbox = document.getElementById('terms');
+    const connectButton = document.getElementById('connectBtn');
+
+    // 2. Función auxiliar para leer los parámetros que envía Aruba en la URL
+    function getQueryParam(name) {
         return new URLSearchParams(window.location.search).get(name);
     }
 
-    function conectar() {
-    //const hostAruba = getParam('host');
-    const hostAruba = getParam('host') || '10.0.50.1';
-    const macCliente = getParam('mac');
-    const loginUrl =`http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}`;
-
-    fetch(loginUrl, { mode: 'no-cors' })
-        .then(() => {
-            window.location.href = 'https://www.farmaya.com';
-        });
-
-   // const destino = encodeURIComponent('https://www.instagram.com/farmaya_pty');
-
-   // window.location.href =`http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&url=${destino}`;
-}
-</script>
-
-<script>
-    const terms = document.getElementById('terms');
-    const button = document.getElementById('connectBtn');
-
-    terms.addEventListener('change', function () {
-        button.disabled = !this.checked;
+    // 3. Habilitar/Deshabilitar el botón según el Checkbox de términos
+    termsCheckbox.addEventListener('change', function () {
+        connectButton.disabled = !this.checked;
     });
 
-    button.addEventListener('click', function () {
-        alert('Gracias por aceptar los términos.');
+    // 4. Evento de clic en el botón (Aquí es donde REALMENTE se autentica)
+    connectButton.addEventListener('click', function () {
+        
+        // Deshabilitamos el botón para evitar doble clic accidental
+        connectButton.disabled = true;
+        connectButton.innerText = "Conectando...";
 
-        // Ejecuta la autenticación Aruba
-       // conectar();
+        // Obtenemos los datos de Aruba de la URL (con valores por defecto si no existen)
+        const hostAruba = getQueryParam('host') || '10.0.50.1';
+        const macCliente = getQueryParam('mac') || '';
+        
+        // URL de destino final a donde quieres que vaya el cliente tras loguearse
+        const urlDestino = encodeURIComponent('https://www.farmaya.com');
 
-        // Si quieres redirigir luego a otra página, Aruba debe hacerlo
-        // o deberías usar:
-        // window.location.href = 'https://www.farmaya.com';
-    });
-</script>
+        // Construimos la URL de autenticación oficial para Aruba Virtual Controller
+        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=authenticate&mac=${macCliente}&url=${urlDestino}`;
+
+        // Enviamos al navegador directamente a la URL de Aruba. 
+        // El Virtual Controller procesará la activación y él mismo redirigirá a FarmaYa.
+        window.location.href = loginUrl;
+    </script>
+
 
 </body>
 </html>
