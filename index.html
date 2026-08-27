@@ -248,14 +248,14 @@ button:disabled{
         connectButton.innerText = "Conectando...";
 
         // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
-        const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org';
+        const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org:4343';
         const macCliente = getQueryParam('mac') || '';
         
         // URL de destino final
         const urlDestino = encodeURIComponent('https://farmaya.com');
 
         // Construimos la URL de autenticación oficial para Aruba
-        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=Listo&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
+        const loginUrl = `https://${hostAruba}/cgi-bin/login?cmd=Listo&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
 
         // Redirección directa
         window.location.href = loginUrl;
