@@ -255,7 +255,7 @@ button:disabled{
         const urlDestino = encodeURIComponent('https://farmaya.com');
 
         // Construimos la URL de autenticación oficial para Aruba
-        const loginUrl = `https://${hostAruba}/cgi-bin/login?cmd=Listo&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
+        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=Listo&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
 
         // Redirección directa
         window.location.href = loginUrl;
