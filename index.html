@@ -215,19 +215,7 @@ button:disabled{
 </div>
     
 <script>
-    // 1. Capturamos los elementos del DOM
-    const termsCheckbox = document.getElementById('terms');
-    const connectButton = document.getElementById('connectBtn');
-
-    // 2. Función para leer los parámetros que envía Aruba en la URL
-    function getQueryParam(name) {
-        try {
-            return new URLSearchParams(window.location.search).get(name);
-        } catch (e) {
-            return null;
-        }
-    }
-
+   
     // 3. Función unificada para activar/desactivar el botón
     function evaluarEstado() {
         if (termsCheckbox.checked) {
@@ -246,19 +234,6 @@ button:disabled{
         // Deshabilitamos el botón inmediatamente para evitar múltiples clics
         connectButton.disabled = true;
         connectButton.innerText = "Conectando...";
-
-        // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
-        const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org';
-        const macCliente = getQueryParam('mac') || '';
-        
-        // URL de destino final
-        const urlDestino = encodeURIComponent('https://farmaya.com');
-
-        // Construimos la URL de autenticación oficial para Aruba
-        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=Listo&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
-
-        // Redirección directa
-        window.location.href = loginUrl;
     });
 </script>
 
