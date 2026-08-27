@@ -248,7 +248,7 @@ button:disabled{
         connectButton.innerText = "Conectando...";
 
         // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
-        const hostAruba = getQueryParam('host') || '';
+        const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org';
         const macCliente = getQueryParam('mac') || '';
         
         // URL de destino final
