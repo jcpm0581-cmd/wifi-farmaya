@@ -248,7 +248,7 @@ button:disabled{
         connectButton.innerText = "Conectando...";
 
         // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
-        const hostAruba = getQueryParam('host') || '10.0.50.1';
+        const hostAruba = getQueryParam('host') || '';
         const macCliente = getQueryParam('mac') || '';
         
         // URL de destino final
