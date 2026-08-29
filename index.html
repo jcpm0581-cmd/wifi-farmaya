@@ -232,6 +232,12 @@ button:disabled{
         // Deshabilitamos el botón inmediatamente para evitar múltiples clics
         connectButton.disabled = true;
         connectButton.innerText = "Conectando...";
+
+        
+        document.getElementById("continuar").addEventListener("click", () => {
+    window.location.href =
+        "redes.html" + window.location.search;
+});
         // Redirección directa
         window.location.href = 'https://wifi-farmaya.farmayafarmacias.workers.dev/redes';
     });
