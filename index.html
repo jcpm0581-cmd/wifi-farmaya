@@ -211,37 +211,27 @@ button:disabled{
 </div>
     
 <script>
-    // 1. Capturamos los elementos del DOM
-    const termsCheckbox = document.getElementById('terms');
-    const connectButton = document.getElementById('connectBtn');
-    // 3. Función unificada para activar/desactivar el botón
-    function evaluarEstado() {
-        if (termsCheckbox.checked) {
-            connectButton.disabled = false;
-        } else {
-            connectButton.disabled = true;
-        }
-    }
+const termsCheckbox = document.getElementById('terms');
+const connectButton = document.getElementById('connectBtn');
 
-    // Escuchamos tanto 'change' como 'click' para asegurar compatibilidad en móviles
-    termsCheckbox.addEventListener('change', evaluarEstado);
-    termsCheckbox.addEventListener('click', evaluarEstado);
+function evaluarEstado() {
+    connectButton.disabled = !termsCheckbox.checked;
+}
 
-    // 4. Evento de clic en el botón de conectar
-    connectButton.addEventListener('click', function () {
-        // Deshabilitamos el botón inmediatamente para evitar múltiples clics
-        connectButton.disabled = true;
-        connectButton.innerText = "Conectando...";
+termsCheckbox.addEventListener('change', evaluarEstado);
 
-        
-  document.getElementById("continuar").addEventListener("click", () => {
+connectButton.addEventListener('click', function () {
+
+    connectButton.disabled = true;
+    connectButton.innerText = "Cargando...";
+
     window.location.href =
-        "redes.html" + window.location.search;
+        'https://wifi-farmaya.farmayafarmacias.workers.dev/redes'
+        + window.location.search;
+
 });
-        // Redirección directa
-       window.location.href = 'https://wifi-farmaya.farmayafarmacias.workers.dev/redes' + window.location.search;
-    });
 </script>
+
 
 
 </body>
