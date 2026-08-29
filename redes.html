@@ -248,11 +248,10 @@ h1{
 
 </div>
 <script>
-    // 1. Capturamos los elementos del DOM
-    //const termsCheckbox = document.getElementById('terms');
-   const connectButton = document.getElementById('connect-btn');
+    // Capturamos el botón
+    const connectButton = document.getElementById('connect-btn');
 
-    // 2. Función para leer los parámetros que envía Aruba en la URL
+    // Función para leer parámetros de la URL
     function getQueryParam(name) {
         try {
             return new URLSearchParams(window.location.search).get(name);
@@ -261,38 +260,35 @@ h1{
         }
     }
 
-    // 3. Función unificada para activar/desactivar el botón
-   // function evaluarEstado() {
-   //     if (termsCheckbox.checked) {
-     //       connectButton.disabled = false;
-      //  } else {
-      //      connectButton.disabled = true;
-     //   }
-  //  }
+    // Verificamos que el botón exista antes de agregar el evento
+    if (connectButton) {
 
-    // Escuchamos tanto 'change' como 'click' para asegurar compatibilidad en móviles
-  //  termsCheckbox.addEventListener('change', evaluarEstado);
- // termsCheckbox.addEventListener('click', evaluarEstado);
+        connectButton.addEventListener('click', function () {
 
-    // 4. Evento de clic en el botón de conectar
-  connectButton.addEventListener('click', function () {
-        // Deshabilitamos el botón inmediatamente para evitar múltiples clics
-      connectButton.disabled = true;
-    connectButton.innerText = "Conectando...";
+            // Evita múltiples clics
+            connectButton.disabled = true;
+            connectButton.innerText = "Conectando...";
 
-        // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
-        const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org';
-        const macCliente = getQueryParam('mac') || '';
-        
-        // URL de destino final
-        const urlDestino = encodeURIComponent('https://farmaya.com');
+            // Datos enviados por Aruba
+            const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org';
+            const macCliente = getQueryParam('mac') || '';
 
-        // Construimos la URL de autenticación oficial para Aruba
-        const loginUrl=`http://${hostAruba}/cgi-bin/login?cmd=AutenticacionExitosaAruba2026&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
+            // URL de destino
+            const urlDestino = encodeURIComponent('https://farmaya.com');
 
-        // Redirección directa
-        window.location.href = loginUrl;
-    });
+            // URL de autenticación Aruba
+            const loginUrl =
+                `http://${hostAruba}/cgi-bin/login?cmd=AutenticacionExitosaAruba2026&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
+
+            console.log('Redireccionando a:', loginUrl);
+
+            // Redirección
+            window.location.href = loginUrl;
+        });
+
+    } else {
+        console.error('No se encontró el elemento con id="connect-btn"');
+    }
 </script>
 </body>
 </html>
