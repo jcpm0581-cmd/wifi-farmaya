@@ -256,21 +256,39 @@ function getParam(name) {
 
 connectButton.addEventListener('click', function () {
 
-const switchip = getParam('switchip');
-const mac = getParam('mac');
 
+
+
+
+function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+}
+
+    const switchip = getParam("switchip");
+    const mac = getParam("mac");
+    
 if (!switchip || !mac) {
     alert('No se recibieron los parámetros de Aruba.');
     return;
 }
+    console.log("switchip:", switchip);
+    console.log("mac:", mac);
 
-const destino = encodeURIComponent('https://farmaya.com');
+    if (!switchip || !mac) {
+        alert("No se recibieron los parámetros de Aruba.");
+        return;
+    }
 
-const loginUrl =
-    `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${destino}`;
+    const urlDestino = encodeURIComponent("https://farmaya.com");
 
-window.location.href = loginUrl;
-``
+    const loginUrl =
+        `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${urlDestino}`;
+
+    console.log("URL Aruba:", loginUrl);
+
+    window.location.href = loginUrl;
+
+    
 });
 </script>
 
