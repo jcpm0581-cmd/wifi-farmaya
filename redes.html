@@ -248,52 +248,28 @@ h1{
 
 </div>
 <script>
-    // Capturamos el botón
     const connectButton = document.getElementById('connect-btn');
 
-    // Función para leer parámetros de la URL
-    function getQueryParam(name) {
-        try {
-            return new URLSearchParams(window.location.search).get(name);
-        } catch (e) {
-            return null;
-        }
-    }
+function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+}
 
-    // Verificamos que el botón exista antes de agregar el evento
-    if (connectButton) {
+connectButton.addEventListener('click', function () {
 
-        connectButton.addEventListener('click', function () {
+    const switchip = getParam('switchip');
+    const mac = getParam('mac');
 
-            // Evita múltiples clics
-            connectButton.disabled = true;
-            connectButton.innerText = "Conectando...";
+    const destino = encodeURIComponent('https://farmaya.com');
 
-            // Datos enviados por Aruba
-            const hostAruba =
-            getQueryParam('switchip') ||
-            getQueryParam('host') ||
-            'farmayawifi.duckdns.org';
-            
-            //const hostAruba = getQueryParam('host') || '10.0.50.1';
-            const macCliente = getQueryParam('mac') || '';
+    const loginUrl =
+        `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${destino}`;
 
-            // URL de destino
-            const urlDestino = encodeURIComponent('https://farmaya.com');
+    console.log(loginUrl);
 
-            // URL de autenticación Aruba
-            const loginUrl =
-                `http://${hostAruba}/cgi-bin/login?cmd=AutenticacionExitosaAruba2026&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
-
-            console.log('Redireccionando a:', loginUrl);
-
-            // Redirección
-            window.location.href = loginUrl;
-        });
-
-    } else {
-        console.error('No se encontró el elemento con id="connect-btn"');
-    }
+    window.location.href = loginUrl;
+});
 </script>
+
+    
 </body>
 </html>
