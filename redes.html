@@ -236,9 +236,9 @@ h1{
         <!-- Si tu portal cautivo requiere autenticación,
              reemplaza el botón por la URL o función correspondiente -->
 
-        <button id="connect-btn" >
-            Conectarme a Internet
-        </button>
+      <button id="connect-btn" class="connect-btn">
+      Conectarme a Internet
+      </button>
     
         <div class="footer">
             © 2026 Farmacia FarmaYa. Todos los derechos reservados.
@@ -288,7 +288,7 @@ h1{
         const urlDestino = encodeURIComponent('https://farmaya.com');
 
         // Construimos la URL de autenticación oficial para Aruba
-        const loginUrl = `http://${hostAruba}/cgi-bin/login?cmd=AutenticacionExitosaAruba2026&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
+        const loginUrl =`http://${hostAruba}/cgi-bin/login?cmd=AutenticacionExitosaAruba2026&mac=${macCliente}&url=${urlDestino}&destination=${urlDestino}`;
 
         // Redirección directa
         window.location.href = loginUrl;
