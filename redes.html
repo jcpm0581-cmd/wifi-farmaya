@@ -236,10 +236,10 @@ h1{
         <!-- Si tu portal cautivo requiere autenticación,
              reemplaza el botón por la URL o función correspondiente -->
 
-      <!--  <button class="connect-btn">
+      <button class="connect-btn">
             Conectar a Internet
         </button>
-      -->
+    
         <div class="footer">
             © 2026 Farmacia FarmaYa. Todos los derechos reservados.
         </div>
@@ -275,10 +275,10 @@ h1{
   //  termsCheckbox.addEventListener('click', evaluarEstado);
 
     // 4. Evento de clic en el botón de conectar
-  //  connectButton.addEventListener('click', function () {
+  connectButton.addEventListener('click', function () {
         // Deshabilitamos el botón inmediatamente para evitar múltiples clics
-    //    connectButton.disabled = true;
-    //    connectButton.innerText = "Conectando...";
+      connectButton.disabled = true;
+    connectButton.innerText = "Conectando...";
 
         // Obtenemos los datos de Aruba de la URL (valores por defecto si estás probando en PC)
         const hostAruba = getQueryParam('host') || 'farmayawifi.duckdns.org';
