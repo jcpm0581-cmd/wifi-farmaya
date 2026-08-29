@@ -248,29 +248,17 @@ h1{
 
 </div>
 <script>
-    const connectButton = document.getElementById('connect-btn');
+const connectButton = document.getElementById("connect-btn");
 
 function getParam(name) {
     return new URLSearchParams(window.location.search).get(name);
 }
 
-connectButton.addEventListener('click', function () {
-
-
-
-
-
-function getParam(name) {
-    return new URLSearchParams(window.location.search).get(name);
-}
+connectButton.addEventListener("click", function () {
 
     const switchip = getParam("switchip");
     const mac = getParam("mac");
-    
-if (!switchip || !mac) {
-    alert('No se recibieron los parámetros de Aruba.');
-    return;
-}
+
     console.log("switchip:", switchip);
     console.log("mac:", mac);
 
