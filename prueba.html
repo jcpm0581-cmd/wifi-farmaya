@@ -22,31 +22,22 @@
         Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica de invitados. Su dispositivo será registrado de forma automática.
     </div>
 
-    <!-- Formulario POST apuntando al recurso interno del Swarm de Aruba -->
-    <form id="arubaRadiusForm" method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev/prueba">
-       
+    <!-- Formulario directo sin JavaScript intermedio -->
+    <form method="POST" action="https://arubanetworks.com">
+        
         <!-- Comando obligatorio de autenticación de Aruba -->
         <input type="hidden" name="cmd" value="authenticate">
         
         <!-- URL de destino final tras conectarse con éxito -->
         <input type="hidden" name="url" value="https://google.com">
 
-        <!-- Campos dinámicos de credenciales que se llenan al hacer clic -->
-        <input type="hidden" name="user" id="user" value="">
-        <input type="hidden" name="password" id="password" value="">
+        <!-- Credenciales comodín inyectadas directamente -->
+        <input type="hidden" name="user" value="invitado">
+        <input type="hidden" name="password" value="invitado123">
 
         <button type="submit">Aceptar y Conectar</button>
     </form>
 </div>
-
-<script>
-    document.getElementById('arubaRadiusForm').addEventListener('submit', function(e) {
-        // En el instante del clic, llenamos los campos con el usuario comodín local
-        // ATENCIÓN: Deben coincidir exactamente con lo que creaste en la pestaña Local User Database
-        document.getElementById('user').value = "invitado";
-        document.getElementById('password').value = "invitado123";
-    });
-</script>
 
 </body>
 </html>
