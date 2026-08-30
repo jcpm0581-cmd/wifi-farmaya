@@ -224,9 +224,9 @@ connectButton.addEventListener('click', function () {
 
     connectButton.disabled = true;
     connectButton.innerText = "Cargando...";
-    window.location.href =
-    'https://wifi-farmaya.farmayafarmacias.workers.dev/redes' +
-     window.location.search;
+     window.location.href =
+    `https://wifi-farmaya.farmayafarmacias.workers.dev/redes${window.location.search}`;
+    ``
 
 });
 </script>
