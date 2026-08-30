@@ -211,16 +211,15 @@ button:disabled{
 </div>
     
 <script>
+const termsCheckbox = document.getElementById('terms');
+const connectButton = document.getElementById('connectBtn');
+    
 const debug = document.getElementById("debug");
 debug.innerHTML =
     "<b>URL recibida:</b><br>" +
     window.location.href +
     "<br><br><b>Query String:</b><br>" +
     window.location.search;
-
-    
-const termsCheckbox = document.getElementById('terms');
-const connectButton = document.getElementById('connectBtn');
 
 function evaluarEstado() {
     connectButton.disabled = !termsCheckbox.checked;
