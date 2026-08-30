@@ -224,7 +224,10 @@ connectButton.addEventListener('click', function () {
 
     connectButton.disabled = true;
     connectButton.innerText = "Cargando...";
-
+if (!switchip || !mac) {
+        alert("No se recibieron los parámetros de Aruba.");
+        return;
+    }
     window.location.href =
         'https://wifi-farmaya.farmayafarmacias.workers.dev/redes'
         + window.location.search;
