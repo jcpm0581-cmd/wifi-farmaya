@@ -3,51 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Cautivo</title>
+    <title>Portal Cautivo - Conexión Segura</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
         .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .terms { height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; text-align: left; margin-bottom: 20px; font-size: 12px; }
-        button { background-color: #ff6b00; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; }
+        .terms { height: 110px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; text-align: left; margin-bottom: 20px; font-size: 12px; color: #555; }
+        button { background-color: #ff6b00; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
         button:hover { background-color: #e56000; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Bienvenido a la red Wi-Fi</h2>
-    <p>Acepte los términos para comenzar a navegar.</p>
+    <h2>Conexión a la Red Wi-Fi</h2>
+    <p>Para ingresar al servicio de internet, por favor acepte los términos de uso.</p>
     
     <div class="terms">
-        Al presionar el botón de abajo, usted acepta los términos y condiciones de uso de esta red Wi-Fi.
+        Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica de invitados. Su dispositivo será registrado de forma automática.
     </div>
 
-    <!-- El formulario inicia completamente VACÍO de credenciales -->
-    <form id="arubaForm" method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev/prueba">
-        <input type="hidden" name="cmd" value="authenticate">
-        <input type="hidden" name="url" value="https://google.com">
+    <!-- Formulario POST apuntando al recurso interno del Swarm de Aruba -->
+    <form id="arubaRadiusForm" method="POST" action="https://securelogin.arubanetworks.com/swarm.cgi">
         
-        <!-- Los campos críticos se generarán dinámicamente con JS -->
-        <input type="hidden" name="user" id="aruba_user" value="">
-        <input type="hidden" name="password" id="aruba_password" value="">
+        <!-- Comando obligatorio de autenticación de Aruba -->
+        <input type="hidden" name="cmd" value="authenticate">
+        
+        <!-- URL de destino final tras conectarse con éxito -->
+        <input type="hidden" name="url" value="https://google.com">
+
+        <!-- Campos dinámicos de credenciales que se llenan al hacer clic -->
+        <input type="hidden" name="user" id="user" value="">
+        <input type="hidden" name="password" id="password" value="">
 
         <button type="submit">Aceptar y Conectar</button>
     </form>
 </div>
 
 <script>
-    document.getElementById('arubaForm').addEventListener('submit', function(e) {
-        // 1. Justo al hacer clic, inyectamos la palabra secreta en el HTML
-        // IMPORTANTE: Pon aquí tu Auth Text exacto del Aruba
-        const authSecret = "AccesoPermitido123"; 
-        
-        document.getElementById('aruba_user').value = authSecret;
-        document.getElementById('aruba_password').value = authSecret;
-        
-        // 2. El formulario se envía inmediatamente después con los datos puestos
+    document.getElementById('arubaRadiusForm').addEventListener('submit', function(e) {
+        // En el instante del clic, llenamos los campos con el usuario comodín local
+        // ATENCIÓN: Deben coincidir exactamente con lo que creaste en la pestaña Local User Database
+        document.getElementById('user').value = "invitado";
+        document.getElementById('password').value = "invitado123";
     });
 </script>
 
 </body>
 </html>
-
