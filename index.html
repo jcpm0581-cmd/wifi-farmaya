@@ -221,21 +221,21 @@ function evaluarEstado() {
 termsCheckbox.addEventListener('change', evaluarEstado);
 
 connectButton.addEventListener('click', function () {
-    
-console.log("URL completa:", window.location.href);
-console.log("Query String:", window.location.search);
 
-const params = new URLSearchParams(window.location.search);
+    console.log("URL completa:", window.location.href);
+    console.log("Query String:", window.location.search);
 
-for (const [key, value] of params.entries()) {
-    console.log(key, value);
-}
-``
+    const params = new URLSearchParams(window.location.search);
+
+    for (const [key, value] of params.entries()) {
+        console.log(key, value);
+    }
+
     connectButton.disabled = true;
     connectButton.innerText = "Cargando...";
+
     window.location.href =
-    `https://wifi-farmaya.farmayafarmacias.workers.dev/redes${window.location.search}`;
-    ``
+        `https://wifi-farmaya.farmayafarmacias.workers.dev/redes${window.location.search}`;
 
 });
 </script>
