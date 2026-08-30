@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Cautivo - Solo Aceptación</title>
+    <title>Portal Cautivo</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
         .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -15,31 +15,39 @@
 <body>
 
 <div class="container">
-    <h2>Bienvenido a nuestra red Wi-Fi</h2>
-    <p>Para navegar, por favor acepte nuestros términos de uso.</p>
+    <h2>Bienvenido a la red Wi-Fi</h2>
+    <p>Acepte los términos para comenzar a navegar.</p>
     
     <div class="terms">
-        Al presionar el botón de abajo, usted acepta no utilizar esta red para actividades ilícitas, descargas ilegales ni acciones que saturen el ancho de banda.
+        Al presionar el botón de abajo, usted acepta los términos y condiciones de uso de esta red Wi-Fi.
     </div>
 
-    <form method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev/prueba">
-        <input type="hidden" name="cmd" id="aruba_cmd" value="">
-        <input type="hidden" name="mac" id="aruba_mac" value="">
+    <!-- El formulario inicia completamente VACÍO de credenciales -->
+    <form id="arubaForm" method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev/prueba">
+        <input type="hidden" name="cmd" value="authenticate">
         <input type="hidden" name="url" value="https://google.com">
         
-        <!-- RECUERDA: Modifica el 'value' con el Auth Text configurado en tu Aruba -->
-        <input type="hidden" name="user" value="AccesoPermitido123">
-        
+        <!-- Los campos críticos se generarán dinámicamente con JS -->
+        <input type="hidden" name="user" id="aruba_user" value="">
+        <input type="hidden" name="password" id="aruba_password" value="">
+
         <button type="submit">Aceptar y Conectar</button>
     </form>
 </div>
 
 <script>
-    // Script para extraer parámetros 'cmd' y 'mac' de la URL y meterlos al formulario
-    const urlParams = new URLSearchParams(window.location.search);
-    document.getElementById('aruba_cmd').value = urlParams.get('cmd') || '';
-    document.getElementById('aruba_mac').value = urlParams.get('mac') || '';
+    document.getElementById('arubaForm').addEventListener('submit', function(e) {
+        // 1. Justo al hacer clic, inyectamos la palabra secreta en el HTML
+        // IMPORTANTE: Pon aquí tu Auth Text exacto del Aruba
+        const authSecret = "AccesoPermitido123"; 
+        
+        document.getElementById('aruba_user').value = authSecret;
+        document.getElementById('aruba_password').value = authSecret;
+        
+        // 2. El formulario se envía inmediatamente después con los datos puestos
+    });
 </script>
 
 </body>
 </html>
+
