@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cautivo - Solo Aceptación</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
+        .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .terms { height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; text-align: left; margin-bottom: 20px; font-size: 12px; }
+        button { background-color: #ff6b00; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { background-color: #e56000; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Bienvenido a nuestra red Wi-Fi</h2>
+    <p>Para navegar, por favor acepte nuestros términos de uso.</p>
+    
+    <div class="terms">
+        Al presionar el botón de abajo, usted acepta no utilizar esta red para actividades ilícitas, descargas ilegales ni acciones que saturen el ancho de banda.
+    </div>
+
+    <form method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev/prueba">
+        <input type="hidden" name="cmd" id="aruba_cmd" value="">
+        <input type="hidden" name="mac" id="aruba_mac" value="">
+        <input type="hidden" name="url" value="https://google.com">
+        
+        <!-- RECUERDA: Modifica el 'value' con el Auth Text configurado en tu Aruba -->
+        <input type="hidden" name="user" value="AccesoPermitido123">
+        
+        <button type="submit">Aceptar y Conectar</button>
+    </form>
+</div>
+
+<script>
+    // Script para extraer parámetros 'cmd' y 'mac' de la URL y meterlos al formulario
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('aruba_cmd').value = urlParams.get('cmd') || '';
+    document.getElementById('aruba_mac').value = urlParams.get('mac') || '';
+</script>
+
+</body>
+</html>
