@@ -211,6 +211,26 @@ button:disabled{
 </div>
     
 <script>
+
+<script>
+
+console.log("URL completa:", window.location.href);
+console.log("Query String:", window.location.search);
+
+if (window.location.search) {
+    console.log("SI llegaron parámetros desde Aruba");
+
+    const params = new URLSearchParams(window.location.search);
+
+    for (const [key, value] of params.entries()) {
+        console.log(`${key} = ${value}`);
+    }
+} else {
+    console.log("NO llegaron parámetros por GET");
+}
+
+   
+    
 const termsCheckbox = document.getElementById('terms');
 const connectButton = document.getElementById('connectBtn');
 
