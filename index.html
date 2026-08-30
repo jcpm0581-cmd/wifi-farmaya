@@ -221,11 +221,19 @@ function evaluarEstado() {
 termsCheckbox.addEventListener('change', evaluarEstado);
 
 connectButton.addEventListener('click', function () {
+    
+console.log("URL completa:", window.location.href);
+console.log("Query String:", window.location.search);
 
+const params = new URLSearchParams(window.location.search);
+
+for (const [key, value] of params.entries()) {
+    console.log(key, value);
+}
+``
     connectButton.disabled = true;
     connectButton.innerText = "Cargando...";
-    console.log(window.location.search);
-     window.location.href =
+    window.location.href =
     `https://wifi-farmaya.farmayafarmacias.workers.dev/redes${window.location.search}`;
     ``
 
