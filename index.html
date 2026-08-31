@@ -318,37 +318,65 @@ h1{
 
 </div>
 <script>
-const connectButton = document.getElementById("connect-btn");
+const termsCheckbox = document.getElementById('terms');
+const connectButton = document.getElementById('connect-btn');
+    
+const debug = document.getElementById("debug");
 
-function getParam(name) {
-    return new URLSearchParams(window.location.search).get(name);
+function evaluarEstado() {
+    connectButton.disabled = !termsCheckbox.checked;
 }
 
-connectButton.addEventListener("click", function () {
+termsCheckbox.addEventListener('change', evaluarEstado);
 
-    const switchip = getParam("switchip");
-    const mac = getParam("mac");
+connectButton.addEventListener('click', function () {
 
-    console.log("switchip:", switchip);
-    console.log("mac:", mac);
 
-    if (!switchip || !mac) {
-        alert("No se recibieron los parámetros de Aruba.");
-        return;
-    }
+    connectButton.disabled = true;
+    connectButton.innerText = "Cargando...";
 
-    const urlDestino = encodeURIComponent("https://farmaya.com");
+    window.location.href = "https://wifi-farmaya.farmayafarmacias.workers.dev/exito";
 
-    const loginUrl =
-        `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${urlDestino}`;
-
-    console.log("URL Aruba:", loginUrl);
-
-    window.location.href = loginUrl;
-
-    
 });
 </script>
+
+
+
+
+
+    
+
+//const connectButton = document.getElementById("connect-btn");
+
+//function getParam(name) {
+ //   return new URLSearchParams(window.location.search).get(name);
+//}
+
+//connectButton.addEventListener("click", function () {
+
+  //  const switchip = getParam("switchip");
+    //const mac = getParam("mac");
+
+  //  console.log("switchip:", switchip);
+   // console.log("mac:", mac);
+
+    //if (!switchip || !mac) {
+      //  alert("No se recibieron los parámetros de Aruba.");
+        //return;
+    //}
+
+    //const urlDestino = encodeURIComponent("https://farmaya.com");
+
+    //const loginUrl =
+      //  `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${urlDestino}`;
+
+    //console.log("URL Aruba:", loginUrl);
+
+    //window.location.href = loginUrl;
+
+    
+//});
+
 
     
 </body>
