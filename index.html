@@ -26,44 +26,7 @@ body{
 
 .container{
     width:100%;
-    max-width:520px;
-}
-
-.card{
-    background:#fff;
-    border-radius:24px;
-    padding:40px;
-    box-shadow:0 20px 50px rgba(0,0,0,.20);
-}
-
-.logo{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.logo img{
-    max-width:180px;
-    width:100%;
-}
-
-.logo-placeholder{
-    border:2px dashed #d1d5db;
-    border-radius:12px;
-    padding:30px;
-    color:#6b7280;
-    font-size:14px;
-}
-
-h1{
-    color:#F15A24;
-    text-align:center;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    text-align:center;
-    color:#666;
-    margin-bottom:25px;
+    max-width:550px;
 }
 
 .terms{
@@ -75,7 +38,6 @@ h1{
     overflow-y:auto;
     margin-bottom:20px;
 }
-
 .terms h3{
     color:#F15A24;
     margin-bottom:10px;
@@ -103,43 +65,148 @@ h1{
     font-size:14px;
 }
 
-button{
+.card{
+    background:#fff;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 20px 50px rgba(0,0,0,.20);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo img{
+    max-width:220px;
     width:100%;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-6px);
+    }
+}
+
+h1{
+    text-align:center;
+    color:#F15A24;
+    margin-bottom:10px;
+    font-size:28px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.promo-box{
+    background:#fff5f1;
+    border:1px solid #ffd2c3;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.promo-box p{
+    color:#444;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.social-section h2{
+    text-align:center;
+    color:#F15A24;
+    margin-bottom:20px;
+}
+
+.social-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.social-btn{
+    text-decoration:none;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.social-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 20px rgba(0,0,0,.12);
+}
+
+.social-btn img{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+}
+
+.social-btn span{
+    font-weight:600;
+    color:#444;
+}
+
+.instagram:hover{
+    border-color:#E1306C;
+}
+
+.facebook:hover{
+    border-color:#1877F2;
+}
+
+.tiktok:hover{
+    border-color:#000;
+}
+
+.whatsapp:hover{
+    border-color:#25D366;
+}
+
+.connect-btn{
+    width:100%;
+    margin-top:25px;
     border:none;
     background:#F15A24;
     color:white;
     padding:16px;
-    border-radius:12px;
-    font-size:16px;
+    font-size:17px;
     font-weight:600;
+    border-radius:12px;
     cursor:pointer;
     transition:.3s;
 }
 
-button:hover{
+.connect-btn:hover{
     background:#d84d1b;
-}
-
-button:disabled{
-    background:#bdbdbd;
-    cursor:not-allowed;
 }
 
 .footer{
     text-align:center;
-    margin-top:20px;
-    font-size:12px;
+    margin-top:25px;
     color:#888;
-}
-
-.support{
-    text-align:center;
-    margin-top:15px;
-    color:#666;
-    font-size:13px;
+    font-size:12px;
 }
 
 </style>
+
 </head>
 <body>
 
@@ -148,22 +215,21 @@ button:disabled{
     <div class="card">
 
         <div class="logo">
-
-            <!-- Reemplaza por tu logo -->
-
-           
-            <img src="logo.png" alt="FarmaYa">
-          
-
-          
-
+            <img src="redeslogo.png" alt="FarmaYa">
         </div>
 
-        <h1>Bienvenido a FarmaYa</h1>
+        <h1>¡Bienvenido a FarmaYa!</h1>
 
         <p class="subtitle">
-            Acceso gratuito a Internet para nuestros visitantes.
+            Conéctate a nuestro WiFi gratuito y mantente al día con nuestras promociones, descuentos y novedades.
         </p>
+
+        <div class="promo-box">
+            <p>
+                🎁 <strong>Síguenos en nuestras redes sociales</strong> y sé el primero en enterarte de ofertas especiales,
+                productos nuevos y beneficios exclusivos.
+            </p>
+        </div>
 
         <div class="terms">
 
@@ -198,48 +264,94 @@ button:disabled{
             </label>
         </div>
 
-        <button id="connectBtn" disabled>
-            Conectarme a Internet
-        </button>
+
         
-        <div id="debug" style="margin-top:20px;font-size:12px;color:red;"></div>  
-        
-          <div class="footer">
-            © Farmacia FarmaYa 2026 | Red WiFi para Invitados
+        <div class="social-section">
+
+            <h2>Nuestras Redes Sociales</h2>
+
+            <div class="social-grid">
+
+                <a href="https://instagram.com/farmaya_pty"
+                   target="_blank"
+                   class="social-btn instagram">
+                    <img src="instagram.png" alt="Instagram">
+                    <span>Instagram</span>
+                </a>
+
+                <a href="https://facebook.com/farmaya_pty"
+                   target="_blank"
+                   class="social-btn facebook">
+                    <img src="facebook.png" alt="Facebook">
+                    <span>Facebook</span>
+                </a>
+
+                <a href="https://tiktok.com/@farmayapanama"
+                   target="_blank"
+                   class="social-btn tiktok">
+                    <img src="tiktok.png" alt="TikTok">
+                    <span>TikTok</span>
+                </a>
+
+                <a href="https://wa.me/50760940078"
+                   target="_blank"
+                   class="social-btn whatsapp">
+                    <img src="whatsapp.png" alt="WhatsApp">
+                    <span>WhatsApp</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Si tu portal cautivo requiere autenticación,
+             reemplaza el botón por la URL o función correspondiente -->
+
+      <button id="connect-btn" class="connect-btn">
+      Conectarme a Internet
+      </button>
+    
+        <div class="footer">
+            © 2026 Farmacia FarmaYa. Todos los derechos reservados.
         </div>
 
     </div>
 
 </div>
-
-
 <script>
-const termsCheckbox = document.getElementById('terms');
-const connectButton = document.getElementById('connectBtn');
-    
-const debug = document.getElementById("debug");
+const connectButton = document.getElementById("connect-btn");
 
-function evaluarEstado() {
-    connectButton.disabled = !termsCheckbox.checked;
+function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
 }
 
-termsCheckbox.addEventListener('change', evaluarEstado);
+connectButton.addEventListener("click", function () {
 
-connectButton.addEventListener('click', function () {
+    const switchip = getParam("switchip");
+    const mac = getParam("mac");
 
+    console.log("switchip:", switchip);
+    console.log("mac:", mac);
 
-    connectButton.disabled = true;
-    connectButton.innerText = "Cargando...";
+    if (!switchip || !mac) {
+        alert("No se recibieron los parámetros de Aruba.");
+        return;
+    }
 
-    window.location.href = "https://wifi-farmaya.farmayafarmacias.workers.dev/exito";
+    const urlDestino = encodeURIComponent("https://farmaya.com");
 
+    const loginUrl =
+        `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${urlDestino}`;
+
+    console.log("URL Aruba:", loginUrl);
+
+    window.location.href = loginUrl;
+
+    
 });
 </script>
 
     
-
-
-
-
 </body>
 </html>
+
