@@ -11,7 +11,7 @@
         .checkbox-container { text-align: left; margin-bottom: 20px; font-size: 14px; }
         button { background-color: #ff6b00; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
         button:disabled { background-color: #cccccc; cursor: not-allowed; }
-        button:hover:navigator { background-color: #e56000; }
+        button:hover { background-color: #e56000; }
     </style>
 </head>
 <body>
@@ -24,43 +24,51 @@
         Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica.
     </div>
 
-    <!-- Casilla de verificación obligatoria para forzar la interacción del usuario -->
     <div class="checkbox-container">
         <input type="checkbox" id="accept-terms" onchange="toggleButton()">
         <label for="accept-terms">He leído y acepto los términos y condiciones.</label>
     </div>
 
-    <!-- Formulario limpio. Los valores críticos se inyectan solo al hacer clic -->
-    <form id="authForm" method="POST" action="https://farmayawifi.duckdns.org">
+    <!-- Cambiado a onsubmit para mejorar compatibilidad con navegadores móviles cautivos -->
+    <form id="authForm" method="POST" action="https://farmayawifi.duckdns.org" onsubmit="return prepararEnvio(event)">
+        
         <input type="hidden" id="cmdParam" name="cmd" value="">
-        <button type="button" id="submitBtn" onclick="submitAuthentication()" disabled>Conectarme a Internet</button>
+        
+        <!-- EL CAMBIO CRÍTICO: El input oculto para Aruba -->
+        <!-- Cambia 'TU_PALABRA_AQUÍ' por la palabra configurada en tu Aruba -->
+        <input type="hidden" id="arubaParam" name="user" value="">
+
+        <button type="submit" id="submitBtn" disabled>Conectarme a Internet</button>
     </form>
 </div>
 
 <script>
-    // Habilita o deshabilita el botón según el checkbox
     function toggleButton() {
         const checkbox = document.getElementById('accept-terms');
         const button = document.getElementById('submitBtn');
         button.disabled = !checkbox.checked;
     }
 
-    // Procesa el envío únicamente bajo la acción del usuario
-    function submitAuthentication() {
+    function prepararEnvio(event) {
         const checkbox = document.getElementById('accept-terms');
         
-        if (checkbox.checked) {
-            // Se asigna el valor requerido por Aruba justo antes de enviar
-            document.getElementById('cmdParam').value = "authenticate";
-            
-            // Envío explícito del formulario
-            document.getElementById('authForm').submit();
-        } else {
+        if (!checkbox.checked) {
+            event.preventDefault();
             alert("Debe aceptar los términos y condiciones primero.");
+            return false;
         }
+
+        // Inyectamos los valores únicamente en el instante del clic humano
+        document.getElementById('cmdParam').value = "authenticate";
+        
+        // Pones tu palabra exacta aquí. Ejemplo: "FarmaYa2026"
+        document.getElementById('arubaParam').value = "Farmayalogrado123"; 
+        
+        return true; // Permite el envío del formulario
     }
 </script>
 
 </body>
 </html>
+
 
