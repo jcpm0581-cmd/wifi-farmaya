@@ -8,13 +8,20 @@
     
     <!-- EL TRUCO: Aruba leerá esta palabra en el código y abrirá el Wi-Fi -->
     <p style="display:none;">Farmayalogrado123</p>
-
-    <script>
+<button onclick="window.open('https://wifi-farmaya.farmayafarmacias.workers.dev/redes', '_blank')">
+  Continuar
+</button>
+    //<script>
         // Opcional: Redirigir al usuario a la web de Farmaya tras 3 segundos
-        setTimeout(function() {
-        window.open("https://wifi-farmaya.farmayafarmacias.workers.dev/redes", "_blank");
+     //   setTimeout(function() {
+     //   window.open(
+     //   "https://wifi-farmaya.farmayafarmacias.workers.dev/redes",
+     //   "_blank",
+     //   "noopener,noreferrer"
+        );
+       // window.open("https://wifi-farmaya.farmayafarmacias.workers.dev/redes", "_blank");
         //window.location.href = "https://wifi-farmaya.farmayafarmacias.workers.dev/redes";
-        }, 3000);
-    </script>
+    //    }, 3000);
+  //  </script>
 </body>
 </html>
