@@ -1,74 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Cautivo - Farmaya</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
-        .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .terms { height: 110px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; text-align: left; margin-bottom: 20px; font-size: 12px; color: #555; }
-        .checkbox-container { text-align: left; margin-bottom: 20px; font-size: 14px; }
-        button { background-color: #ff6b00; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
-        button:hover { background-color: #e56000; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h2>Conexión a la Red Wi-Fi</h2>
-    <p>Para ingresar al servicio de internet, por favor acepte los términos de uso.</p>
+<!-- En tu Página 1 (Términos y condiciones) -->
+<form action="https://wifi-farmaya.farmayafarmacias.workers.dev/redes" method="POST">
+    <!-- Tu Checkbox obligatorio -->
+    <label>
+        <input type="checkbox" required> He leído y acepto los términos y condiciones.
+    </label>
+    <br><br>
     
-    <div class="terms">
-        Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica.
-    </div>
-
-    <div class="checkbox-container">
-        <input type="checkbox" id="accept-terms" onchange="toggleButton()">
-        <label for="accept-terms">He leído y acepto los términos y condiciones.</label>
-    </div>
-
-    <!-- Cambiado a onsubmit para mejorar compatibilidad con navegadores móviles cautivos -->
-    <form id="authForm" method="POST" action="https://farmayawifi.duckdns.org" onsubmit="return prepararEnvio(event)">
-        
-        <input type="hidden" id="cmdParam" name="cmd" value="">
-        
-        <!-- EL CAMBIO CRÍTICO: El input oculto para Aruba -->
-        <!-- Cambia 'TU_PALABRA_AQUÍ' por la palabra configurada en tu Aruba -->
-        <input type="hidden" id="arubaParam" name="user" value="">
-
-        <button type="submit" id="submitBtn" disabled>Conectarme a Internet</button>
-    </form>
-</div>
-
-<script>
-    function toggleButton() {
-        const checkbox = document.getElementById('accept-terms');
-        const button = document.getElementById('submitBtn');
-        button.disabled = !checkbox.checked;
-    }
-
-    function prepararEnvio(event) {
-        const checkbox = document.getElementById('accept-terms');
-        
-        if (!checkbox.checked) {
-            event.preventDefault();
-            alert("Debe aceptar los términos y condiciones primero.");
-            return false;
-        }
-
-        // Inyectamos los valores únicamente en el instante del clic humano
-        document.getElementById('cmdParam').value = "authenticate";
-        
-        // Pones tu palabra exacta aquí. Ejemplo: "FarmaYa2026"
-        document.getElementById('arubaParam').value = "Farmayalogrado123"; 
-        
-        return true; // Permite el envío del formulario
-    }
-</script>
-
-</body>
-</html>
-
-
+    <!-- El botón ahora envía el formulario -->
+    <button type="submit">Conectarme a Internet</button>
+</form>
