@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Cautivo - Acceso Wi-Fi</title>
+    <title>Portal Cautivo - Farmaya</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
         .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -19,43 +19,30 @@
     <p>Para ingresar al servicio de internet, por favor acepte los términos de uso.</p>
     
     <div class="terms">
-        Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica de invitados. Su dispositivo será registrado de forma automática.
+        Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica.
     </div>
 
-    <!-- El formulario se enviará de manera dinámica por JS -->
-    <form id="arubaForm" method="POST" action="https://farmayawifi.duckdns.org">
+    <!-- EL CAMBIO CRÍTICO: El action apunta a tu propio Worker, NO al Aruba. 
+         Como el teléfono ya puede comunicarse con tu Worker, la petición NO se congelará. -->
+    <form method="POST" action="https://workers.dev">
         
-        <!-- Parámetros de autenticación obligatorios -->
+        <!-- El parámetro 'cmd' obligatorio para indicarle la acción al Aruba -->
         <input type="hidden" name="cmd" value="authenticate">
-        <input type="hidden" name="user" value="invitado">
-        <input type="hidden" name="password" value="invitado123">
-        <input type="hidden" name="url" value="https://google.com">
 
-        <!-- CAMPOS NUEVOS Y CRÍTICOS: Capturan la sesión del usuario del Aruba -->
-        <input type="hidden" name="ip" id="client_ip" value="">
-        <input type="hidden" name="mac" id="client_mac" value="">
+        <!-- El truco del "Authentication Text": 
+             Al Aruba interceptar este POST saliente en el aire, leerá este valor 'user'.
+             Si coincide con la palabra del AP, el firewall se abrirá mágicamente. -->
+        <input type="hidden" name="user" id="aruba_text" value="">
 
-        <button type="submit">Aceptar y Conectar</button>
+        <button type="submit" onclick="setAuthText()">Aceptar y Conectar</button>
     </form>
 </div>
 
 <script>
-    // 1. Cuando Aruba redirige al celular hacia Cloudflare Workers,
-    // le inyecta a la URL variables como ?ip=192.168.X.X&mac=aa:bb:cc...
-    // Este script lee la URL del navegador y extrae esos datos obligatorios.
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    const userIp = urlParams.get('ip') || '';
-    const userMac = urlParams.get('mac') || '';
-    const switchIp = urlParams.get('switch_url') || ''; // Si el Aruba envía la IP del AP
-
-    // 2. Insertamos la IP y MAC del teléfono en el formulario antes de enviar
-    document.getElementById('client_ip').value = userIp;
-    document.getElementById('client_mac').value = userMac;
-
-    // 3. Ajuste de contingencia: Si el Aruba requiere su IP directa en lugar del dominio
-    if (switchIp) {
-        document.getElementById('arubaForm').action = switchIp;
+    function setAuthText() {
+        // IMPORTANTE: Escribe aquí la palabra clave exacta que configuraste en tu Aruba
+        // Ejemplo: "AccesoPermitido123"
+        document.getElementById('aruba_text').value = "AccesoPermitido123";
     }
 </script>
 
