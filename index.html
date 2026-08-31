@@ -218,11 +218,6 @@ const termsCheckbox = document.getElementById('terms');
 const connectButton = document.getElementById('connectBtn');
     
 const debug = document.getElementById("debug");
-debug.innerHTML =
-    "<b>URL recibida:</b><br>" +
-    window.location.href +
-    "<br><br><b>Query String:</b><br>" +
-    window.location.search;
 
 function evaluarEstado() {
     connectButton.disabled = !termsCheckbox.checked;
@@ -237,7 +232,7 @@ connectButton.addEventListener('click', function () {
     connectButton.innerText = "Cargando...";
 
     window.location.href =
-        `https://wifi-farmaya.farmayafarmacias.workers.dev/exito${window.location.search}`;
+        `https://wifi-farmaya.farmayafarmacias.workers.dev/exito`;
 
 });
 </script>
