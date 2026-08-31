@@ -8,8 +8,10 @@
         body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
         .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .terms { height: 110px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; text-align: left; margin-bottom: 20px; font-size: 12px; color: #555; }
+        .checkbox-container { text-align: left; margin-bottom: 20px; font-size: 14px; }
         button { background-color: #ff6b00; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
-        button:hover { background-color: #e56000; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        button:hover:navigator { background-color: #e56000; }
     </style>
 </head>
 <body>
@@ -22,28 +24,40 @@
         Al presionar el botón de abajo, usted acepta cumplir con las políticas de navegación y seguridad establecidas para esta red inalámbrica.
     </div>
 
-    <!-- EL CAMBIO CRÍTICO: El action apunta a tu propio Worker, NO al Aruba. 
-         Como el teléfono ya puede comunicarse con tu Worker, la petición NO se congelará. -->
-    <!-- <form method="POST" action="https://workers.dev"> -->
-        <form method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev">
-        
-        <!-- El parámetro 'cmd' obligatorio para indicarle la acción al Aruba -->
-        <input type="hidden" name="cmd" value="authenticate">
+    <!-- Casilla de verificación obligatoria para forzar la interacción del usuario -->
+    <div class="checkbox-container">
+        <input type="checkbox" id="accept-terms" onchange="toggleButton()">
+        <label for="accept-terms">He leído y acepto los términos y condiciones.</label>
+    </div>
 
-        <!-- El truco del "Authentication Text": 
-             Al Aruba interceptar este POST saliente en el aire, leerá este valor 'user'.
-             Si coincide con la palabra del AP, el firewall se abrirá mágicamente. -->
-        <input type="hidden" name="user" id="aruba_text" value="">
-
-        <button type="submit" onclick="setAuthText()">Aceptar y Conectar</button>
+    <!-- Formulario limpio. Los valores críticos se inyectan solo al hacer clic -->
+    <form id="authForm" method="POST" action="https://wifi-farmaya.farmayafarmacias.workers.dev">
+        <input type="hidden" id="cmdParam" name="cmd" value="">
+        <button type="button" id="submitBtn" onclick="submitAuthentication()" disabled>Conectarme a Internet</button>
     </form>
 </div>
 
 <script>
-    function setAuthText() {
-        // IMPORTANTE: Escribe aquí la palabra clave exacta que configuraste en tu Aruba
-        // Ejemplo: "AccesoPermitido123"
-        document.getElementById('aruba_text').value = "Farmayalogrado123";
+    // Habilita o deshabilita el botón según el checkbox
+    function toggleButton() {
+        const checkbox = document.getElementById('accept-terms');
+        const button = document.getElementById('submitBtn');
+        button.disabled = !checkbox.checked;
+    }
+
+    // Procesa el envío únicamente bajo la acción del usuario
+    function submitAuthentication() {
+        const checkbox = document.getElementById('accept-terms');
+        
+        if (checkbox.checked) {
+            // Se asigna el valor requerido por Aruba justo antes de enviar
+            document.getElementById('cmdParam').value = "authenticate";
+            
+            // Envío explícito del formulario
+            document.getElementById('authForm').submit();
+        } else {
+            alert("Debe aceptar los términos y condiciones primero.");
+        }
     }
 </script>
 
