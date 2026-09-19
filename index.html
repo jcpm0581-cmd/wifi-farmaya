@@ -204,6 +204,26 @@ h1{
     color:#888;
     font-size:12px;
 }
+button{
+    width:100%;
+    border:none;
+    background:#F15A24;
+    color:white;
+    padding:16px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+button:hover{
+    background:#d84d1b;
+}
+
+button:disabled{
+    background:#bdbdbd;
+    cursor:not-allowed;
+}
 
 </style>
 
@@ -226,6 +246,9 @@ window.onload = function() {
     console.log("action:", loginUrl);
 
 };
+function loginAruba() {
+    document.getElementById("arubaForm").submit();
+}
 
 </script>
 
@@ -287,7 +310,7 @@ window.onload = function() {
             </label>
         </div>
 
-
+        
         
         <div class="social-section">
 
@@ -328,10 +351,11 @@ window.onload = function() {
 
         <!-- Si tu portal cautivo requiere autenticación,
              reemplaza el botón por la URL o función correspondiente -->
-
-      <button id="connect-btn" class="connect-btn">
-      Conectarme a Internet
-      </button>
+        <button id="connect-btn" disabled ">
+               Conectarme a Internet
+			   
+        </button>
+     
     
         <div class="footer">
             © 2026 Farmacia FarmaYa. Todos los derechos reservados.
@@ -341,6 +365,28 @@ window.onload = function() {
 
 </div>
 
+<script>
+const termsCheckbox = document.getElementById('terms');
+const connectButton = document.getElementById('connect-btn');
+    
+//const debug = document.getElementById("debug");
+
+function evaluarEstado() {
+    connectButton.disabled = !termsCheckbox.checked;
+}
+
+termsCheckbox.addEventListener('change', evaluarEstado);
+
+connectButton.addEventListener('click', function () {
+
+
+    connectButton.disabled = true;
+    connectButton.innerText = "Cargando...";
+	loginAruba()
+
+    
+});
+</script>
 
 <form id="arubaForm" method="POST">
 
@@ -356,8 +402,4 @@ Aceptar
 
 
 
-
-    
-</body>
-</html>
 
