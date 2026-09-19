@@ -317,6 +317,64 @@ h1{
     </div>
 
 </div>
+
+<script>
+function getQueryParam(param) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(param);
+}
+
+window.onload = function() {
+
+    // Mostrar URL completa
+    console.log("URL COMPLETA:");
+    console.log(window.location.href);
+
+    // Mostrar todos los parámetros recibidos
+    console.log("PARAMETROS RECIBIDOS:");
+
+    const params = new URLSearchParams(window.location.search);
+
+    params.forEach(function(value, key) {
+        console.log(key + " = " + value);
+    });
+
+    // Intentar obtener cmdurl
+    var actionUrl = getQueryParam("cmdurl");
+
+    console.log("CMDURL:");
+    console.log(actionUrl);
+
+    if (actionUrl) {
+        document.getElementById("arubaForm").action =
+            decodeURIComponent(actionUrl);
+
+        console.log("FORM ACTION CONFIGURADO:");
+        console.log(document.getElementById("arubaForm").action);
+    } else {
+        console.error("NO SE ENCONTRO EL PARAMETRO CMDURL");
+    }
+};
+
+function beforeSubmit() {
+
+    var form = document.getElementById("arubaForm");
+
+    console.log("ENVIANDO FORMULARIO");
+
+    console.log("ACTION:");
+    console.log(form.action);
+
+    console.log("USUARIO:");
+    console.log(form.user.value);
+
+    console.log("PASSWORD:");
+    console.log(form.password.value);
+
+    return true;
+}
+</script>
+
 <script>
 const termsCheckbox = document.getElementById('terms');
 const connectButton = document.getElementById('connect-btn');
@@ -335,49 +393,31 @@ connectButton.addEventListener('click', function () {
     connectButton.disabled = true;
     connectButton.innerText = "Cargando...";
 
-    window.location.href = "https://wifi-farmaya.farmayafarmacias.workers.dev/exito";
+   // window.location.href = "https://wifi-farmaya.farmayafarmacias.workers.dev/exito";
 
 });
 </script>
 
+<form id="arubaForm"
+      method="POST"
+      action=""
+      onsubmit="return beforeSubmit();">
+
+    <input type="hidden" name="cmd" value="authenticate">
+
+    <input type="hidden" name="user" value="guest">
+
+    <input type="hidden" name="password" value="guest">
+
+    <button type="submit">
+        Aceptar y Conectar
+    </button>
+
+</form>
 
 
 
 
-<script>    
-
-//const connectButton = document.getElementById("connect-btn");
-
-//function getParam(name) {
- //   return new URLSearchParams(window.location.search).get(name);
-//}
-
-//connectButton.addEventListener("click", function () {
-
-  //  const switchip = getParam("switchip");
-    //const mac = getParam("mac");
-
-  //  console.log("switchip:", switchip);
-   // console.log("mac:", mac);
-
-    //if (!switchip || !mac) {
-      //  alert("No se recibieron los parámetros de Aruba.");
-        //return;
-    //}
-
-    //const urlDestino = encodeURIComponent("https://farmaya.com");
-
-    //const loginUrl =
-      //  `http://${switchip}/cgi-bin/login?cmd=login&mac=${mac}&url=${urlDestino}`;
-
-    //console.log("URL Aruba:", loginUrl);
-
-    //window.location.href = loginUrl;
-
-    
-//});
-
-</script>   
     
 </body>
 </html>
