@@ -1,91 +1,46 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Portal Aruba Debug</title>
+<meta charset="utf-8">
 
 <script>
-function getQueryParam(param) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(param);
+
+function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
 }
 
 window.onload = function() {
 
-    // Mostrar URL completa
-    console.log("URL COMPLETA:");
-    console.log(window.location.href);
+    const switchip = getParam("switchip");
 
-    // Mostrar todos los parámetros recibidos
-    console.log("PARAMETROS RECIBIDOS:");
+    console.log("switchip:", switchip);
 
-    const params = new URLSearchParams(window.location.search);
+    const loginUrl = "https://" + switchip + "/cgi-bin/login";
 
-    params.forEach(function(value, key) {
-        console.log(key + " = " + value);
-    });
+    document.getElementById("arubaForm").action = loginUrl;
 
-    // Intentar obtener cmdurl
-    var actionUrl = getQueryParam("cmdurl");
+    console.log("action:", loginUrl);
 
-    console.log("CMDURL:");
-    console.log(actionUrl);
-
-    if (actionUrl) {
-        document.getElementById("arubaForm").action =
-            decodeURIComponent(actionUrl);
-
-        console.log("FORM ACTION CONFIGURADO:");
-        console.log(document.getElementById("arubaForm").action);
-    } else {
-        console.error("NO SE ENCONTRO EL PARAMETRO CMDURL");
-    }
 };
 
-function beforeSubmit() {
-
-    var form = document.getElementById("arubaForm");
-
-    console.log("ENVIANDO FORMULARIO");
-
-    console.log("ACTION:");
-    console.log(form.action);
-
-    console.log("USUARIO:");
-    console.log(form.user.value);
-
-    console.log("PASSWORD:");
-    console.log(form.password.value);
-
-    return true;
-}
 </script>
 
 </head>
 
 <body>
 
-<h1>Portal Aruba Debug</h1>
+<form id="arubaForm" method="POST">
 
-<p>Abra F12 → Console antes de presionar el botón.</p>
+<input type="hidden" name="cmd" value="authenticate">
+<input type="hidden" name="user" value="guest">
+<input type="hidden" name="password" value="guest">
 
-<form id="arubaForm"
-      method="POST"
-      action=""
-      onsubmit="return beforeSubmit();">
-
-    <input type="hidden" name="cmd" value="authenticate">
-
-    <input type="hidden" name="user" value="guest">
-
-    <input type="hidden" name="password" value="guest">
-
-    <button type="submit">
-        Aceptar y Conectar
-    </button>
+<button type="submit">
+Aceptar
+</button>
 
 </form>
 
 </body>
 </html>
-`
+
