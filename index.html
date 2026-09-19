@@ -207,6 +207,29 @@ h1{
 
 </style>
 
+<script>
+
+function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+}
+
+window.onload = function() {
+
+    const switchip = getParam("switchip");
+
+    console.log("switchip:", switchip);
+
+    const loginUrl = "https://" + switchip + "/cgi-bin/login";
+
+    document.getElementById("arubaForm").action = loginUrl;
+
+    console.log("action:", loginUrl);
+
+};
+
+</script>
+
+    
 </head>
 <body>
 
@@ -318,100 +341,16 @@ h1{
 
 </div>
 
-<script>
-function getQueryParam(param) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(param);
-}
 
-window.onload = function() {
+<form id="arubaForm" method="POST">
 
-    // Mostrar URL completa
-    console.log("URL COMPLETA:");
-    console.log(window.location.href);
+<input type="hidden" name="cmd" value="authenticate">
+<input type="hidden" name="user" value="guest">
+<input type="hidden" name="password" value="guest">
 
-    // Mostrar todos los parámetros recibidos
-    console.log("PARAMETROS RECIBIDOS:");
-
-    const params = new URLSearchParams(window.location.search);
-
-    params.forEach(function(value, key) {
-        console.log(key + " = " + value);
-    });
-
-    // Intentar obtener cmdurl
-    var actionUrl = getQueryParam("cmdurl");
-
-    console.log("CMDURL:");
-    console.log(actionUrl);
-
-    if (actionUrl) {
-        document.getElementById("arubaForm").action =
-            decodeURIComponent(actionUrl);
-
-        console.log("FORM ACTION CONFIGURADO:");
-        console.log(document.getElementById("arubaForm").action);
-    } else {
-        console.error("NO SE ENCONTRO EL PARAMETRO CMDURL");
-    }
-};
-
-function beforeSubmit() {
-
-    var form = document.getElementById("arubaForm");
-
-    console.log("ENVIANDO FORMULARIO");
-
-    console.log("ACTION:");
-    console.log(form.action);
-
-    console.log("USUARIO:");
-    console.log(form.user.value);
-
-    console.log("PASSWORD:");
-    console.log(form.password.value);
-
-    return true;
-}
-</script>
-
-<script>
-const termsCheckbox = document.getElementById('terms');
-const connectButton = document.getElementById('connect-btn');
-    
-const debug = document.getElementById("debug");
-
-function evaluarEstado() {
-    connectButton.disabled = !termsCheckbox.checked;
-}
-
-termsCheckbox.addEventListener('change', evaluarEstado);
-
-connectButton.addEventListener('click', function () {
-
-
-    connectButton.disabled = true;
-    connectButton.innerText = "Cargando...";
-
-   // window.location.href = "https://wifi-farmaya.farmayafarmacias.workers.dev/exito";
-
-});
-</script>
-
-<form id="arubaForm"
-      method="POST"
-      action=""
-      onsubmit="return beforeSubmit();">
-
-    <input type="hidden" name="cmd" value="authenticate">
-
-    <input type="hidden" name="user" value="guest">
-
-    <input type="hidden" name="password" value="guest">
-
-    <button type="submit">
-        Aceptar y Conectar
-    </button>
+<button type="submit">
+Aceptar
+</button>
 
 </form>
 
