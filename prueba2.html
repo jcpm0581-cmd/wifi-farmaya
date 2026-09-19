@@ -1,38 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Portal Externo Cloudflare</title>
-    <script>
-        // Truco para capturar la IP del AP que Aruba envía en la URL original
-        function getQueryParam(param) {
-            var urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+<meta charset="UTF-8">
+<title>Portal Aruba Debug</title>
 
-        window.onload = function() {
-            // Aruba envía el destino de autenticación en el parámetro 'cmdurl' (ej: http://192.168.1)
-            var actionUrl = getQueryParam('cmdurl');
-            if (actionUrl) {
-                document.getElementById('arubaForm').action = decodeURIComponent(actionUrl);
-            }
-        }
-    </script>
+<script>
+function getQueryParam(param) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(param);
+}
+
+window.onload = function() {
+
+    // Mostrar URL completa
+    console.log("URL COMPLETA:");
+    console.log(window.location.href);
+
+    // Mostrar todos los parámetros recibidos
+    console.log("PARAMETROS RECIBIDOS:");
+
+    const params = new URLSearchParams(window.location.search);
+
+    params.forEach(function(value, key) {
+        console.log(key + " = " + value);
+    });
+
+    // Intentar obtener cmdurl
+    var actionUrl = getQueryParam("cmdurl");
+
+    console.log("CMDURL:");
+    console.log(actionUrl);
+
+    if (actionUrl) {
+        document.getElementById("arubaForm").action =
+            decodeURIComponent(actionUrl);
+
+        console.log("FORM ACTION CONFIGURADO:");
+        console.log(document.getElementById("arubaForm").action);
+    } else {
+        console.error("NO SE ENCONTRO EL PARAMETRO CMDURL");
+    }
+};
+
+function beforeSubmit() {
+
+    var form = document.getElementById("arubaForm");
+
+    console.log("ENVIANDO FORMULARIO");
+
+    console.log("ACTION:");
+    console.log(form.action);
+
+    console.log("USUARIO:");
+    console.log(form.user.value);
+
+    console.log("PASSWORD:");
+    console.log(form.password.value);
+
+    return true;
+}
+</script>
+
 </head>
+
 <body>
 
-    <h1>Bienvenido a nuestra red</h1>
-    <p>Acepta los términos para continuar.</p>
+<h1>Portal Aruba Debug</h1>
 
-    <!-- El action se llena dinámicamente con JavaScript apuntando al AP -->
-    <form id="arubaForm" method="POST" action="">
-        <!-- Valores fijos que engañan al AP para que abra el acceso directo -->
-        <input type="hidden" name="user" value="guest">
-        <input type="hidden" name="password" value="guest">
-        <input type="hidden" name="cmd" value="authenticate">
-        
-        <button type="submit">Aceptar y Conectar</button>
-    </form>
+<p>Abra F12 → Console antes de presionar el botón.</p>
+
+<form id="arubaForm"
+      method="POST"
+      action=""
+      onsubmit="return beforeSubmit();">
+
+    <input type="hidden" name="cmd" value="authenticate">
+
+    <input type="hidden" name="user" value="guest">
+
+    <input type="hidden" name="password" value="guest">
+
+    <button type="submit">
+        Aceptar y Conectar
+    </button>
+
+</form>
 
 </body>
 </html>
+`
